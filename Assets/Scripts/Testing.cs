@@ -14,7 +14,10 @@ public class Testing : MonoBehaviour {
     public TileSpriteData quicksandTileVisual;
 
     [Header("Ant Settings")]
-    public Sprite antSprite; // Drag your ant texture here
+    public Sprite antFacingUp;
+    public Sprite antFacingDown;
+    public Sprite antFacingLeft;
+    public Sprite antFacingRight;
 
     public TextAsset levelFile; // Drag your level1.txt here
 
@@ -85,10 +88,17 @@ public class Testing : MonoBehaviour {
     private void SpawnAnt(Vector2Int startGridPos) {
         GameObject antGO = new GameObject("Ant");
         SpriteRenderer renderer = antGO.AddComponent<SpriteRenderer>();
-        renderer.sprite = antSprite;
+        renderer.sprite = antFacingUp; // Set initial facing direction
         renderer.sortingOrder = 10;
 
         AntController ant = antGO.AddComponent<AntController>();
-        ant.Initialize(grid, startGridPos, cellSize);
+        ant.antSprite = renderer;
+        ant.antFacingUp = antFacingUp;
+        ant.antFacingDown = antFacingDown;
+        ant.antFacingLeft = antFacingLeft;
+        ant.antFacingRight = antFacingRight;
+
+        ant.Initialize(grid, tilemapVisual, startGridPos, cellSize);
+
     }
 }
