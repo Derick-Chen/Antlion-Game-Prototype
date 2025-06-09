@@ -24,6 +24,10 @@ public class Grid<TGridObject> {
         return new Vector3(x, y) * cellSize + originPosition;
     }
 
+    public bool IsValidGridPosition(int x, int y) {
+    return x >= 0 && y >= 0 && x < width && y < height;
+    }
+
     public void SetValue(int x, int y, TGridObject value) {
         if (x >= 0 && y >= 0 && x < width && y < height) {
             gridArray[x, y] = value;

@@ -6,5 +6,5 @@ public enum TileType {
     Normal,
     Sand,
     Rock,
-    Quicksand
+    Quicksand,
 }

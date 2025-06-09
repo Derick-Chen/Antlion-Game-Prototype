@@ -384,6 +384,7 @@ MonoBehaviour:
     tileType: 3
     sprite: {fileID: 21300000, guid: 27f2f9fc3c1513946b70eea33210354a, type: 3}
     color: {r: 1, g: 1, b: 1, a: 1}
+  antSprite: {fileID: 21300000, guid: 027f352e2b0e02240b54ab3e986266f1, type: 3}
   levelFile: {fileID: 4900000, guid: bcbd1fb806efc6b4ca4e4001279763fb, type: 3}
 --- !u!4 &2128569014
 Transform:
