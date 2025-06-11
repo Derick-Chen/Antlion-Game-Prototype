@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AntController : MonoBehaviour {
     public SpriteRenderer antSprite;
@@ -70,24 +71,36 @@ public class AntController : MonoBehaviour {
         TileType targetTile = grid.GetValue(newPos.x, newPos.y);
         if (targetTile == TileType.Rock) return;
 
+        // Move to the new position
         gridPosition = newPos;
 
-        // Handle quicksand fall
-        if (targetTile == TileType.Quicksand) {
-            Vector2Int below = gridPosition + Vector2Int.down;
-            if (grid.IsValidGridPosition(below.x, below.y) &&
-                grid.GetValue(below.x, below.y) != TileType.Rock) {
-                Vector2Int fallPos = gridPosition + Vector2Int.down * 2;
-                if (grid.IsValidGridPosition(fallPos.x, fallPos.y) &&
-                    grid.GetValue(fallPos.x, fallPos.y) != TileType.Rock) {
-                    gridPosition = fallPos;
+        // Begin fall loop: continue falling as long as on quicksand
+        while (grid.GetValue(gridPosition.x, gridPosition.y) == TileType.Quicksand) {
+            Vector2Int oneBelow = gridPosition + Vector2Int.down;
+            Vector2Int twoBelow = gridPosition + Vector2Int.down * 2;
+
+            bool oneBelowValid = grid.IsValidGridPosition(oneBelow.x, oneBelow.y);
+            bool twoBelowValid = grid.IsValidGridPosition(twoBelow.x, twoBelow.y);
+
+            // If 1 below is not a rock, attempt to fall
+            if (oneBelowValid && grid.GetValue(oneBelow.x, oneBelow.y) != TileType.Rock) {
+                // If 2 below is also not a rock, fall 2 tiles
+                if (twoBelowValid && grid.GetValue(twoBelow.x, twoBelow.y) != TileType.Rock) {
+                    gridPosition = twoBelow;
+                } else {
+                    // Only 1 tile fall if 2nd is a rock
+                    gridPosition = oneBelow;
                 }
+            } else {
+                // No more falling possible
+                break;
             }
         }
 
         transform.position = GetWorldPosition(gridPosition);
         UseEnergy(1);
     }
+
 
     private void EnterScanMode() {
         scanning = true;
@@ -169,4 +182,4 @@ public class AntController : MonoBehaviour {
                            pos.y * tileSize + grid.OriginPosition.y + tileSize / 2,
                            -1f);
     }
-}
+} 

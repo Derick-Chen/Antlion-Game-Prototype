@@ -5,7 +5,7 @@ using System.IO;
 
 public class Testing : MonoBehaviour {
     [Header("Grid Settings")]
-    public float cellSize = 10f;
+    public float cellSize = 100f;
     public Vector3 originPosition = Vector3.zero;
 
     [Header("Tile Visuals")]
@@ -64,7 +64,9 @@ public class Testing : MonoBehaviour {
         }
 
         CenterCameraOnGrid(width, height);
-        SpawnAnt(new Vector2Int(0, 0)); // Start ant at tile (0,0)
+        int middleX = grid.Width / 2;
+        int bottomY = 0;
+        SpawnAnt(new Vector2Int(middleX, bottomY));
     }
 
     private TileType CharToTileType(string c) {
