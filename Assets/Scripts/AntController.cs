@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AntController : MonoBehaviour {
     public SpriteRenderer antSprite;
@@ -54,6 +55,9 @@ public class AntController : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.S)) moveDir = Vector2Int.down;
         else if (Input.GetKeyDown(KeyCode.A)) moveDir = Vector2Int.left;
         else if (Input.GetKeyDown(KeyCode.D)) moveDir = Vector2Int.right;
+
+        //Steven Code
+        if (Input.GetKeyDown(KeyCode.O)) {SceneManager.LoadScene(0);}
 
         if (moveDir != Vector2Int.zero) {
             facingDirection = moveDir;
